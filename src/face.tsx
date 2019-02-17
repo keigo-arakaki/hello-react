@@ -1,62 +1,15 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import SelectGender, { GenderType } from './selectGender';
-import Face from './face';
+import React from 'react';
+import { GenderType }from './selectGender'
 
-interface Props {
+
+interface Props{
+  gender:GenderType,
 }
 
-interface State{
-  count: number,
-  isShowText: boolean,
+export default function Face(props: Props){
+  const imgUrl = (props.gender === GenderType.Male) ?
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Jack_Reacher-_Never_Go_Back_Japan_Premiere_Red_Carpet-_Tom_Cruise_%2835375035831%29.jpg/250px-Jack_Reacher-_Never_Go_Back_Japan_Premiere_Red_Carpet-_Tom_Cruise_%2835375035831%29.jpg' :
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cameron_Diaz_WE_2012_Shankbone_4.JPG/250px-Cameron_Diaz_WE_2012_Shankbone_4.JPG';
+
+  return <img src={imgUrl} />;
 }
-
-class App extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      count: 0,
-      isShowText: false,
-    }
-    this.countUp = this.countUp.bind(this);
-  }
-
-  countUp() {
-    this.setState({
-      count: this.state.count + 1,
-      isShowText: true,
-    })
-  }
-
-  render() {
-
-    return (
-      <div className="App">
-        <header className="App-header">
-          <p>{(this.state.isShowText) && 'test'}</p>
-          <img
-            src={logo}
-            className="App-logo"
-            alt="logo"
-            width="200"
-            height="100"
-            onClick={this.countUp}
-          />
-          <p>
-            {this.state.count}
-          </p>
-          <SelectGender
-            face={(gender: GenderType) =>(
-              <React.Fragment>
-                <Face gender={gender} />
-              </React.Fragment>
-            )}
-          />
-        </header>
-      </div>
-    );
-  }
-}
-
-export default App;

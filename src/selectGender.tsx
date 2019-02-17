@@ -1,15 +1,50 @@
-import React from 'react';
-import { GenderType }from './selectGender'
+import React, { Component } from 'react';
 
+export enum GenderType{
+  Male,
+  Female,
+}
 
 interface Props{
-  gender:GenderType,
+  face: (gender: GenderType) => JSX.Element
 }
 
-export default function Face(props: Props){
-  const imgUrl = (props.gender === GenderType.Male) ?
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Jack_Reacher-_Never_Go_Back_Japan_Premiere_Red_Carpet-_Tom_Cruise_%2835375035831%29.jpg/250px-Jack_Reacher-_Never_Go_Back_Japan_Premiere_Red_Carpet-_Tom_Cruise_%2835375035831%29.jpg' :
-    'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cameron_Diaz_WE_2012_Shankbone_4.JPG/250px-Cameron_Diaz_WE_2012_Shankbone_4.JPG';
-
-  return <img src={imgUrl} />;
+interface State{
+  gender: GenderType,
 }
+
+
+class SelectGender extends Component<Props,State>{
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      gender: GenderType.Male,
+    }
+    this.changeGender = this.changeGender.bind(this);
+  }
+
+  changeGender(gender: GenderType){
+    this.setState({ gender });
+  }
+
+
+  render() {
+    return(
+      <React.Fragment>
+        <button
+          onClick={() => this.changeGender(GenderType.Male)}
+        >
+          Male
+        </button>
+        <button
+          onClick={() => this.changeGender(GenderType.Female)}
+        >
+          Female
+        </button>
+        {this.props.face(this.state.gender)}
+      </React.Fragment>
+    )
+  }
+}
+
+export default SelectGender;

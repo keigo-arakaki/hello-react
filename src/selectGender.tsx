@@ -31,16 +31,18 @@ class SelectGender extends Component<Props,State>{
   render() {
     return(
       <React.Fragment>
-        <button
-          onClick={() => this.changeGender(GenderType.Male)}
-        >
-          Male
-        </button>
-        <button
-          onClick={() => this.changeGender(GenderType.Female)}
-        >
-          Female
-        </button>
+        <div className="select-button">
+          <button className="select-button__item"
+            onClick={() => this.changeGender(GenderType.Male)}
+          >
+            Male
+          </button>
+          <button className="select-button__item"
+            onClick={() => this.changeGender(GenderType.Female)}
+          >
+            Female
+          </button>
+        </div>
         {this.props.face(this.state.gender)}
       </React.Fragment>
     )
